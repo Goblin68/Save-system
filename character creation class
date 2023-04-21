@@ -1,0 +1,42 @@
+import pickle
+
+class character():
+    def __init__(self, name = "", health = 25, level = 1, location = "", xp = 0):
+        self.name = name
+        self.health = health
+        self.level = level
+        self.armor = []
+        self.tools = []
+        self.items = []
+        self.location = location
+        self.xp = xp
+
+    def create(self,name):
+        print("BUILD YOUR CHARACTER!!")
+        #n = input("whats your characters name?")
+        self.name = name
+        print(name + " is an awesome name!")
+        print("your starting stats are: \n" + "health = " + str(self.health) + "\n level = " + str(self.level))
+        data = {"stats": {"name" : self.name, "health": self.health, 'level': self.level}, 'inventory': {"armor": self.armor, "tools": self.tools, "items": self.items}}
+        with open(name + ".savefile", "wb") as f:
+            pickle.dump(data, f)
+        f.close()
+
+    #add a collected item to the inventory where it is the item collected
+    def addinventory(self, it):
+        self.items.ammend(it)
+        print(it + " has been added to your inventory")
+ 
+    def reducehealthStat(self, amount):
+        self.health -= amount
+
+    def levelUp(self):
+        self.level += 1
+        self.health += 5
+        print("congrats! your level is now " + self.level + "\n and your health is now " + self.health)
+    
+    def save(self, name, health, level, armor, tools, items):
+        data = {"stats": {"name" : self.name, "health": self.health, 'level': self.level}, 'inventory': {"armor": self.armor, "tools": self.tools, "items": self.items}}
+        with open(name + ".savefile", "wb") as f:
+            pickle.dump(data, f)
+        f.close()
