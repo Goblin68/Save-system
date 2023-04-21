@@ -1,0 +1,50 @@
+from character import character
+import pickle
+
+
+def intro():
+    start = False
+    running = False
+    #starting the game
+    x = input("would you like to play the game? \nyes or no")
+    if x.lower() == "yes":
+        start = True
+    else:
+        print("thats too bad maybe next time")
+    #game loop
+    while(start == True):
+        star()
+        print(load.data)
+        start = False
+        running = True
+    while(running == True):
+        pass
+      
+        
+
+def star():
+    s = input("welcome to the game! \ndo you have a character to load? \nyes or no")
+    if s.lower() == "yes":
+        n = input("what is your characters name?")
+        return load(n)
+
+            
+    if s.lower() == "no":
+        print("Lets make you a character then!")
+        name = input("what is your name?")
+        x = character()
+        x.create(name)
+        return load(name)
+
+
+
+def load(n):
+    with open(n + ".savefile", "rb") as file:
+        load.data = pickle.load(file)
+    return load.data
+
+def save(n, health, level, armor, tools, items):
+    data = {"stats": {"name" : n, "health": health, 'level': level}, 'inventory': {"armor": armor, "tools": tools, "items": items}}
+    with open(n + ".savefile", "wb") as f:
+        pickle.dump(data, f)
+    f.close()
